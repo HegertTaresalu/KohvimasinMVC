@@ -1,0 +1,44 @@
+﻿@model KohvimasinMVC.Data.Kohvimasin
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Kohvimasin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Jooginimi" class="control-label"></label>
+                <input asp-for="Jooginimi" class="form-control" />
+                <span asp-validation-for="Jooginimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Topsepakis" class="control-label"></label>
+                <input asp-for="Topsepakis" class="form-control" />
+                <span asp-validation-for="Topsepakis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Topsejuua" class="control-label"></label>
+                <input asp-for="Topsejuua" class="form-control" />
+                <span asp-validation-for="Topsejuua" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

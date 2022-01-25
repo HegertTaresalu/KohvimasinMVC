@@ -1,0 +1,36 @@
+﻿@model KohvimasinMVC.Data.Kohvimasin
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Kohvimasin</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Jooginimi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Jooginimi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Topsepakis)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Topsepakis)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Topsejuua)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Topsejuua)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

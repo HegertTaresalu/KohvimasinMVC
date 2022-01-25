@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using KohvimasinMVC.Models;
+using KohvimasinMVC.Data;
 
 namespace KohvimasinMVC.Data
 {
@@ -13,5 +14,6 @@ namespace KohvimasinMVC.Data
             : base(options)
         {
         }
+        public DbSet<KohvimasinMVC.Data.Kohvimasin> Kohvimasin { get; set; }
     }
 }
