@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<KohvimasinMVC.Data.Kohvimasin>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin";
 }
 
-<h1>Index</h1>
+<h1>Admin</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -37,10 +37,7 @@
                 @Html.DisplayFor(modelItem => item.JoogiKogus)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Topsikogus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topsejuua)
+                <a asp-action="LisaTäitepakk" asp-route-id="@item.Id">Väljasta Täiteüakk</a> |
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

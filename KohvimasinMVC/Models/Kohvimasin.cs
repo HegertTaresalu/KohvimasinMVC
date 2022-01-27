@@ -9,7 +9,10 @@ namespace KohvimasinMVC.Data
     {
         public int Id { get; set; }
         public string Jooginimi { get; set; }
-        public int Topsepakis { get; set; }
+        public int JoogiKogus { get; set; }
+        public int Jookepakis = 50;
+        public int Topsikogus { get; set; }
+        public int Topsepakis = 50;
         public int Topsejuua { get; set; }
     }
 }

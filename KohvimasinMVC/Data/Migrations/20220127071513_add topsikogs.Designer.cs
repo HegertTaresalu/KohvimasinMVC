@@ -4,14 +4,16 @@ using KohvimasinMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KohvimasinMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220127071513_add topsikogs")]
+    partial class addtopsikogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +35,9 @@ namespace KohvimasinMVC.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Topsejuua")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Topsepakis")
                         .HasColumnType("int");
 
                     b.Property<int>("Topsikogus")
