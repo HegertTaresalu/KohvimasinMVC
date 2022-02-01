@@ -1,0 +1,22 @@
+﻿@model IEnumerable<KohvimasinMVC.Data.Kohvimasin>
+
+@{
+    ViewData["Title"] = "Klient";
+}
+
+<div class = "row">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@item.Jooginimi</h5>
+                <a asp-action="VõtaJook" asp-route-id="@item.Id">VõtaJook</a>
+
+
+
+            </div>
+
+        </div>
+    }
+</div>
+
