@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KohvimasinMVC.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KohvimasinMVC.Controllers
 {
@@ -42,13 +44,38 @@ namespace KohvimasinMVC.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(Admin));
+            return RedirectToAction(nameof(Klient));
 
+        }
+
+        public async Task<IActionResult> VõtaJookTopsita(int id)
+        {
+
+            var model = await _context.Kohvimasin.FindAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                model.JoogiKogus -= 1;
+                _context.Update(model);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!KohvimasinExists(model.Id))
+                {
+                    return NotFound();
+                }
+            }
+
+            return RedirectToAction(nameof(Klient));
         }
 
         public async Task<IActionResult> Klient()
         {
-            var model = _context.Kohvimasin.Where(e => e.Topsikogus != 0 | e.JoogiKogus != 0);
+            var model = _context.Kohvimasin.Where(e => e.Topsikogus != 0 && e.JoogiKogus != 0);
             return View(await model.ToListAsync());
         }
 
@@ -94,15 +121,49 @@ namespace KohvimasinMVC.Controllers
             }
             return View(kohvimasin);
         }
-        // GET: Kohvimasins
-        public async Task<IActionResult> Admin()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Muuda(int id, [Bind("Id,Jooginimi,JoogiKogus,Topsikogus,Topsejuua")] Kohvimasin kohvimasin)
         {
-            return View(await _context.Kohvimasin.ToListAsync());
+            if (id != kohvimasin.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(kohvimasin);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!KohvimasinExists(kohvimasin.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Admin));
+            }
+            return View(kohvimasin);
         }
 
 
         // GET: Kohvimasins
-        public async Task<IActionResult> LisaToode()
+        [Authorize]
+        public async Task<IActionResult> Admin()
+        {
+      
+            return View(await _context.Kohvimasin.ToListAsync());
+
+        }
+            // GET: Kohvimasins
+            public async Task<IActionResult> LisaToode()
         {
             return View();
         }
