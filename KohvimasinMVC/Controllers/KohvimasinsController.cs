@@ -21,6 +21,8 @@ namespace KohvimasinMVC.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> VõtaJook(int id)
         {
 
@@ -48,6 +50,8 @@ namespace KohvimasinMVC.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> VõtaJookTopsita(int id)
         {
 
@@ -75,7 +79,7 @@ namespace KohvimasinMVC.Controllers
 
         public async Task<IActionResult> Klient()
         {
-            var model = _context.Kohvimasin.Where(e => e.Topsikogus != 0 && e.JoogiKogus != 0);
+            var model = _context.Kohvimasin.Where(e => e.JoogiKogus != 0);
             return View(await model.ToListAsync());
         }
 

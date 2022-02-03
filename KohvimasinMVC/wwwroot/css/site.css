@@ -84,3 +84,7 @@ body {
         opacity:1;
         transition-duration:0.5s;
     }
+
+.logo{
+    width:5%;
+}

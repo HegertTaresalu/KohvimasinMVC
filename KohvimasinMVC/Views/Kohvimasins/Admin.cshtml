@@ -23,7 +23,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Topsikogus)
             </th>
-            <th></th>
+            <th>
+                Valikud
+            </th>
+            <th>
+               Täitepakk
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -42,12 +47,12 @@
                 @Html.DisplayFor(modelItem => item.Topsikogus)
             </td>
             <td>
-                <a asp-action="Muuda" asp-route-id="@item.Id">Muuda</a> |
-                <a asp-action="Kustuta" asp-route-id="@item.Id">Delete</a>
+                <a class = "btn btn-warning"asp-action="Muuda" asp-route-id="@item.Id">Muuda</a> 
+                <a class = "btn btn-danger"asp-action="Kustuta" asp-route-id="@item.Id">Delete</a>
             </td>
             <td>
-                <a asp-action="LisaTäitepakk" asp-route-id="@item.Id">Lisa Joogi Täitepakk</a>   |
-                <a asp-action="LisaTopsiTäitepakk" asp-route-id="@item.Id">Lisa Topsi Täitepakk</a>
+                <a class="btn btn-primary" asp-action="LisaTäitepakk" asp-route-id="@item.Id">Lisa Joogi Täitepakk</a>   
+                <a class="btn btn-primary" asp-action="LisaTopsiTäitepakk" asp-route-id="@item.Id">Lisa Topsi Täitepakk</a>
 
 
             </td>
