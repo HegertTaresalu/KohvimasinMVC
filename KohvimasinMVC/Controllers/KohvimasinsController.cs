@@ -21,8 +21,6 @@ namespace KohvimasinMVC.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> VõtaJook(int id)
         {
 
@@ -35,6 +33,12 @@ namespace KohvimasinMVC.Controllers
             {
                 model.JoogiKogus -= 1;
                 model.Topsikogus -= 1;
+
+                if (model.JoogiKogus < 0 || model.Topsikogus < 0)
+                {
+                    model.JoogiKogus ++ ;
+                    model.Topsikogus ++ ;
+                }
                 _context.Update(model);
                 await _context.SaveChangesAsync();
             }
@@ -50,8 +54,6 @@ namespace KohvimasinMVC.Controllers
 
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> VõtaJookTopsita(int id)
         {
 
@@ -63,6 +65,11 @@ namespace KohvimasinMVC.Controllers
             try
             {
                 model.JoogiKogus -= 1;
+
+                if (model.JoogiKogus < 0)
+                {
+                    model.JoogiKogus ++;
+                }
                 _context.Update(model);
                 await _context.SaveChangesAsync();
             }
