@@ -39,8 +39,10 @@ namespace KohvimasinMVC.Controllers
                     model.JoogiKogus ++ ;
                     model.Topsikogus ++ ;
                 }
+                RowEdit(id);
                 _context.Update(model);
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -70,6 +72,7 @@ namespace KohvimasinMVC.Controllers
                 {
                     model.JoogiKogus ++;
                 }
+                RowEdit(id);
                 _context.Update(model);
                 await _context.SaveChangesAsync();
             }
@@ -146,7 +149,9 @@ namespace KohvimasinMVC.Controllers
                 try
                 {
                     _context.Update(kohvimasin);
+                    RowEdit(id); 
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -169,14 +174,15 @@ namespace KohvimasinMVC.Controllers
         [Authorize]
         public async Task<IActionResult> Admin()
         {
-      
-            return View(await _context.Kohvimasin.ToListAsync());
+          
+                return View(await _context.Kohvimasin.ToListAsync());
 
+   
         }
             // GET: Kohvimasins
-            public async Task<IActionResult> LisaToode()
-        {
-            return View();
+        public async Task<IActionResult> LisaToode()
+        {   
+            return  View();
         }
 
         [HttpPost]
@@ -186,6 +192,11 @@ namespace KohvimasinMVC.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(kohvimasin);
+                foreach (var item in _context.Kohvimasin)
+                {
+                    kohvimasin.Topsikogus = item.Topsikogus;
+                    break;
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Admin));
             }
@@ -202,6 +213,8 @@ namespace KohvimasinMVC.Controllers
             try
             {
                 model.JoogiKogus += model.Topsepakis;
+                RowEdit(id);
+
                 _context.Update(model);
                 await _context.SaveChangesAsync();
             }
@@ -226,6 +239,7 @@ namespace KohvimasinMVC.Controllers
             try
             {
                 model.Topsikogus += model.Topsepakis;
+                RowEdit(id);
                 _context.Update(model);
                 await _context.SaveChangesAsync();
             }
@@ -282,7 +296,9 @@ namespace KohvimasinMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+              
                 _context.Add(kohvimasin);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -323,6 +339,7 @@ namespace KohvimasinMVC.Controllers
                 {
                     _context.Update(kohvimasin);
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -369,9 +386,30 @@ namespace KohvimasinMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async void RowEdit(int id)
+        {
+            var kohvimasin = await _context.Kohvimasin.FindAsync(id);
+            var model = _context.Kohvimasin;
+            foreach (var item in model)
+            {
+                item.Topsikogus = kohvimasin.Topsikogus;
+            }
+
+            RedirectToAction(nameof(Klient));
+        }
+
+
         private bool KohvimasinExists(int id)
         {
             return _context.Kohvimasin.Any(e => e.Id == id);
         }
+
+      
+
+
+
+
+
+
     }
 }

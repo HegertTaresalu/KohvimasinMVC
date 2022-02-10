@@ -10,6 +10,12 @@ namespace KohvimasinMVC.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

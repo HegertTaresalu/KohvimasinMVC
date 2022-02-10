@@ -13,6 +13,7 @@
                 @if (item.Topsikogus == 0)
                 {
                     <a asp-action="VõtaJookTopsita" asp-route-id="@item.Id">Võta jook topsita</a>
+                    @item.JoogiKogus;
 
                 }
                 else
@@ -20,6 +21,8 @@
                     <a asp-action="VõtaJookTopsita" asp-route-id="@item.Id">Võta jook topsita</a>
                     <br />
                     <a asp-action="VõtaJook" asp-route-id="@item.Id">Võta Jook topsiga</a>
+                    <p>@item.JoogiKogus </p>
+
 
                 }
 
